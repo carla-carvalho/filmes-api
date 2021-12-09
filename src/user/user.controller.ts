@@ -1,21 +1,27 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Get } from '@nestjs/common';
 import { create } from 'domain';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from '@prisma/client';
 
 @Controller('user')
 export class UserController {
-  constructor(private service: UserService){
+  constructor(private service: UserService) {}
 
+  @Post('create')
+  createUser(@Body() data: CreateUserDto): Promise<User>  {
+    return this.service.createUser(data);
   }
-    
-    @Post('create')
-    createUser(@Body() data:CreateUserDto): CreateUserDto[]{
-        return this.service.createUser(data);
-    }
 
-    @Get('pegar-todos')
-    getUsers(): CreateUserDto[]{
-        return this.service.getUsers();
-    }
+  @Patch('update/:id')
+  update(@Param('id') id: string, @Body() data: UpdateUserDto): Promise<User> {
+  return this.service.update(id, data);      
+   }
+
+   @Get('findMany')
+   findMany(): Promise<any[]> {
+     return this.service.findMany();
+   }
+
 }
