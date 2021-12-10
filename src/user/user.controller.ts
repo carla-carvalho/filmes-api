@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Get, Delete } from '@nestjs/common';
 import { create } from 'domain';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,4 +24,13 @@ export class UserController {
      return this.service.findMany();
    }
 
+   @Get('findUnique/:id')
+   findUnique(@Param('id') id: string): Promise<User> {
+    return this.service.findUni(id);
+   }
+
+   @Delete('delete/:id')
+   delete (@Param('id') id: string): Promise<{message: string}> {
+     return this.service.delete(id);
+   }
 }

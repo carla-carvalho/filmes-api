@@ -67,6 +67,26 @@ export class UserService {
     delete user.senha;
     return user;
   }
+
+  async delete( id: string): Promise<{message: string}> {
+    const user = await this.database.user.findUnique({
+      where: { id },
+    });
+
+    if(!user) {
+      throw new NotFoundException('Usuário não encontrado',);
+    }
+
+    else{
+      await this.database.user.delete({
+        where: { id },
+      });
+    }
+
+    return {
+      message: 'Usuário excluído com sucesso'
+    }
+  }
   
 }
 
