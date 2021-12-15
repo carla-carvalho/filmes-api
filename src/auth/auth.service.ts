@@ -20,7 +20,13 @@ export class AuthService {
 
         const senhaValida = await bcrypt.compare(dadosdoLogin.senha, usuarioExistente.senha);
 
-        return senhaValida;
+       if(senhaValida){
+           return 'Login efetuado com sucesso'
+       }
+    
+       else{
+           return 'E-mail ou senha incorretos'
+       }
     }
     }
 
