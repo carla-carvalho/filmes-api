@@ -18,16 +18,18 @@ model User {
   senha      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  linkimagem String
 }
 
-model Films {
-   id         String   @id @default(uuid())
-   nome       String @unique
-   genero     String
-   diretor    String
-   linkimagem String
-   createdAt  DateTime @default(now())
+model Film {
+  id         String   @id @default(uuid())
+  nome       String   @unique
+  anoLancamento String
+  genero     String
+  diretor    String
+  linkimagem String
+  createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  
+
 
 }

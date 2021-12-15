@@ -11,7 +11,7 @@ export class UpdateFilmDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  linkImagem: string;
+  linkimagem: string;
 }
 
 

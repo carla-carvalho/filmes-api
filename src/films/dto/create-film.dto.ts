@@ -19,5 +19,5 @@ export class CreateFilmDto {
 
   @IsString()
   @IsNotEmpty()
-  linkImagem: string;
+  linkimagem: string;
 }

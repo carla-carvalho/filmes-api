@@ -19,6 +19,10 @@ export class CreateUserDto{
     @Length(5, 10)
     senha: string;
 
+    @IsString()
+    @IsNotEmpty()
+    linkimagem: string;
+
     @IsString({message: 'Digite novamente a senha'})
     @IsNotEmpty({message: 'O campo não pode ficar vazio'})
     confirmacaoSenha: string;
