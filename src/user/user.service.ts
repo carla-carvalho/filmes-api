@@ -3,8 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { User } from '@prisma/client';
-import { userInfo } from 'os';
+import { User, Film } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -39,9 +38,9 @@ export class UserService {
     return user;
   }
 
-  async update(id: string, userData: UpdateUserDto): Promise<User> {
+  async update(id: string, data: UpdateUserDto): Promise<User> {
     const user =  await this.database.user.update({
-      data: userData,
+      data,
       where: { id: id},
     });
 
@@ -85,7 +84,24 @@ export class UserService {
 
     return {
       message: 'Usuário excluído com sucesso'
+    };
+  }
+
+  async addList(user: User, filmId: string){
+    const filme = await this.database.film.findUnique({
+      where: { id: filmId},
+    });
+
+    if(!filme){
+      throw new NotFoundException('Filme não encontrado');
     }
+
+    const relacionamento = await this.database.user.update({
+      where: { id: user.id},
+      data: {
+    
+      }
+    })
   }
   
 }

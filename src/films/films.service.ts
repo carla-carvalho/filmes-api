@@ -2,8 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { CreateFilmDto } from './dto/create-film.dto';
 import { UpdateFilmDto } from './dto/update-film.dto';
 import { PrismaService } from 'src/prisma.service';
-import { Film } from '@prisma/client';
-import { NOTFOUND } from 'dns';
+import { Film } from '@prisma/client';  
 
 @Injectable()
 export class FilmsService {
@@ -41,10 +40,10 @@ export class FilmsService {
    return filmeExistente;
   }
 
-  async update(id: string, updateFilmDto: UpdateFilmDto): Promise<Film> {
+  async update(id: string, data: UpdateFilmDto): Promise<Film> {
     const filme = await this.database.film.update({
-      data: updateFilmDto,
-      where: { id}, 
+      data: data,
+      where: { id }, 
     });
 
   return filme;
