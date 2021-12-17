@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, UnauthorizedException, NotFoundException } from '@nestjs/common';
+import { Injectable, ConflictException, UnauthorizedException, NotFoundException, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -96,12 +96,22 @@ export class UserService {
       throw new NotFoundException('Filme não encontrado');
     }
 
-    const relacionamento = await this.database.user.update({
+    const usuario = await this.database.user.update({
       where: { id: user.id},
       data: {
-    
-      }
-    })
+        filmes: {
+          connect: {
+            id: filme.id
+          },
+        },
+       },
+       include: {
+         filmes: true,
+       }
+    });
+
+    delete usuario.senha;
+    return usuario;
   }
   
 }
